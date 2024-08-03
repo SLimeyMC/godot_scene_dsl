@@ -3,12 +3,21 @@ package io.github.slimeymc
 
 import godot.Control
 import godot.Node
+import godot.core.StringName
 import godot.core.Vector2
 import godot.global.GD
 import godot.util.RealT
 
-inline fun Control(vararg attributes: Pair<String, Any> = emptyArray(), script: String? = null, noinline children: () -> List<Node> = { emptyList() })
-        = createNode(Control::class.java, emptyList(), *attributes, script = script, children = children)
+//inline fun Control(vararg attributes: Pair<String, Any> = emptyArray(), script: String? = null, noinline children: () -> List<Node> = { emptyList() })
+//        = createNode(Control::class.java, emptyList(), *attributes, script = script, children = children)
+
+
+inline fun Control(vararg attributes: Pair<String, Any> = emptyArray(), script: String? = null, crossinline children: () -> List<Node> = { emptyList() })
+= Control().also {
+    script?.let { script -> it.setScript(GD.load(script)) }
+    attributes.forEach { (key, value) -> it.set(StringName(key), value) }
+    children().forEach { child -> it.addChild(child) }
+}
 
 
 inline fun clipContent(clip: Boolean) = "clip_content" to clip
