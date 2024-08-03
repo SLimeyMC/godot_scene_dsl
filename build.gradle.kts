@@ -14,6 +14,10 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+godot {
+    projectName = "godot_scene_dsl"
+}
+
 tasks.test {
     useJUnitPlatform()
 }
