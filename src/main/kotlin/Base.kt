@@ -4,7 +4,7 @@ import godot.Node
 import godot.core.StringName
 import godot.global.GD
 
-fun <T: Node> CreateNode(
+fun <T: Node> createNode(
     type: Class<out T>,
     params: List<Any>,
     vararg attributes: Pair<String, Any> = emptyArray(),
